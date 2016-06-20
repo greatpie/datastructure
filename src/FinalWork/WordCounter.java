@@ -28,21 +28,24 @@ public class WordCounter {
         char currChar, preChar;
         //处理头部空格及特殊符号
         int i = 1;
-        while (wordStr.charAt(i)<65 || wordStr.charAt(i)>122){
+        while (wordStr.charAt(i)<65 || wordStr.charAt(i)>122 || (wordStr.charAt(i)>90 && wordStr.charAt(i)<97)){
             i++;
         }
 
         for (;i < wordStr.length(); i++) {
             currChar = wordStr.charAt(i);   //当前字符
             preChar = wordStr.charAt(i - 1);  //前一个字符
-            //处理结尾无标点
-            if( i == wordStr.length()-1){
-                endIndex = i;
-                SeqString temp = wordStr.substring(beginIndex, endIndex);
-                beginIndex = endIndex;
-                disposeWord(temp);
 
-            }
+            //处理结尾无标点
+//            if( i == wordStr.length()-1){
+//                //如果是字母
+//                if (isLetter(wordStr.charAt(i))) {
+//                    endIndex = i;
+//                    SeqString temp = wordStr.substring(beginIndex, endIndex);
+//                    beginIndex = endIndex;
+//                    disposeWord(temp);
+//                }
+//            }
 
             if ((int) (currChar) < 65 || (int) (currChar) > 122 //当前字符不是字母
                    ) {
@@ -88,6 +91,13 @@ public class WordCounter {
             j++;
         }
         wordResult[k][j] = new WordWithFrequency(temp);
+    }
+    public boolean isLetter(char a){
+        int val = (int)a;
+        if((val>=65 && val<=90)|| (val>=97 && val<=122)){
+            return false;
+        }
+        return true;
     }
 
     public static void main(String[] args) {
